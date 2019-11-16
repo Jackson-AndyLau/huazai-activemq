@@ -23,7 +23,7 @@ import org.junit.Test;
  *
  * @version V1.0.0
  */
-public class ActiveMQTest {
+public class TQueueProducer {
 
 	@Test
 	public void test() throws Exception {
@@ -34,6 +34,8 @@ public class ActiveMQTest {
 		// 3、开启连接，调用Connection对象的start方法
 		connection.start();
 		// 4、使用Connection对象创建一个Session对象
+		// 第一个参数：表示是否开启分布式事务（JTA） 一般就是false :表示不开启。 只有设置了false ,第二个参数才有意义。
+		// 第二个参数：表示设置应答模式 自动应答和手动应答 。使用的是自动应答
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		// 5、使用Session对象创建一个Destination对象（topic、queue），此处创建一个Queue对象
 		Queue query = session.createQueue("test-001");
