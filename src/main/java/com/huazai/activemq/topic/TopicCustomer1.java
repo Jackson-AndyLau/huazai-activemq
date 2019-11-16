@@ -2,7 +2,10 @@ package com.huazai.activemq.topic;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.MessageProducer;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -15,7 +18,7 @@ import org.junit.Test;
  * @author HuaZai
  * @contact who.seek.me@java98k.vip
  *          <ul>
- * @description ActiveMQ的Topic的Producer测试单元
+ * @description ActiveMQ的Topic的Consumer1测试单元
  *              </ul>
  * @className TopicProducer
  * @package com.huazai.activemq.topic
@@ -23,10 +26,10 @@ import org.junit.Test;
  *
  * @version V1.0.0
  */
-public class TopicProducer {
+public class TopicCustomer1 {
 
 	@Test
-	public void send() throws Exception {
+	public void reieve() throws Exception {
 		// 1、创建ConnectionFactory对象，并指定ActiveMQ服务ip及端口号（需要指定TCP通信）
 		ConnectionFactory factory = new ActiveMQConnectionFactory("tcp://192.168.194.131:61616");
 		// 2、使用ConnectionFactory对象创建一个Connection对象
@@ -40,14 +43,35 @@ public class TopicProducer {
 		// 5、使用session创建目的地（destination）topic
 		Topic topic = session.createTopic("topic-001");
 		// 6、使用Session对象创建一个Producer对象
-		MessageProducer producer = session.createProducer(topic);
-		// 7、创建TextMessage对象，并封装消息
-		TextMessage message = session.createTextMessage("Hello test ActiveMQ topic!!!");
-		// 8、使用Producer对象发送消息
-		producer.send(message);
-		// 9、释放连接资源
+		MessageConsumer consumer = session.createConsumer(topic);
+		// 7.接收消息
+
+		// 设置消息监听器
+		System.out.println("start");
+		consumer.setMessageListener(new MessageListener() {
+
+			@Override
+			public void onMessage(Message message) {
+				if (message instanceof TextMessage) {
+					TextMessage message2 = (TextMessage) message;
+					String text = "";
+					try {
+						text = message2.getText();
+					} catch (JMSException e) {
+						e.printStackTrace();
+					}
+					// 获取消息的内容
+					System.out.println(text);
+				}
+			}
+		});
+		System.out.println("end");
+		// 睡眠
+		Thread.sleep(10000000);
+
+		// 9.、关闭资源
+		consumer.close();
 		session.close();
-		producer.close();
 		connection.close();
 	}
 }
