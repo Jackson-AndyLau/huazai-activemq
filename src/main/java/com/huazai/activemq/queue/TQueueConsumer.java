@@ -6,7 +6,6 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
@@ -14,6 +13,19 @@ import javax.jms.TextMessage;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.junit.Test;
 
+/**
+ * 
+ * @author HuaZai
+ * @contact who.seek.me@java98k.vip
+ *          <ul>
+ * @description ActiveMQ的Queue的Consumer测试单元
+ *              </ul>
+ * @className ActiveMQTest
+ * @package com.huazai.activemq.queue
+ * @createdTime 2017年06月18日
+ *
+ * @version V1.0.0
+ */
 public class TQueueConsumer {
 	
 	@Test
@@ -29,7 +41,7 @@ public class TQueueConsumer {
 		// 第二个参数：表示设置应答模式 自动应答和手动应答 。使用的是自动应答
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		// 5、使用Session对象创建一个Destination对象（topic、queue），此处创建一个Queue对象
-		Queue query = session.createQueue("test-001");
+		Queue query = session.createQueue("queue-001");
 		// 6、使用Session对象创建一个Producer对象
 		MessageConsumer consumer = session.createConsumer(query);
 		// 7、接收消息，并解析输出
