@@ -22,6 +22,7 @@ public class ActiveMQMessageListener implements MessageListener {
 
 	@Override
 	public void onMessage(Message message) {
+		// 接收消息
 		if (message instanceof TextMessage) {
 			TextMessage textMessage = (TextMessage) message;
 			String text;

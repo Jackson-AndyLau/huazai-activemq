@@ -32,11 +32,11 @@ public class Producer {
 	public void send() throws Exception {
 		// 1、初始化Spring容器
 		context = new ClassPathXmlApplicationContext("classpath:applicationContext-activemq.xml");
-		// 2.、获取JmsTemplate对象
+		// 2、获取JmsTemplate对象
 		JmsTemplate jmsTemplate = context.getBean(JmsTemplate.class);
-		// 3、.获取Destination对象
+		// 3、获取Destination对象
 		Destination destination = (Destination) context.getBean(Destination.class);
-		// 4、.发送消息
+		// 4、发送消息
 		jmsTemplate.send(destination, new MessageCreator() {
 
 			@Override

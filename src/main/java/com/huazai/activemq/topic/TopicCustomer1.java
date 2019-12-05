@@ -44,7 +44,7 @@ public class TopicCustomer1 {
 		Topic topic = session.createTopic("topic-001");
 		// 6、使用Session对象创建一个Producer对象
 		MessageConsumer consumer = session.createConsumer(topic);
-		// 7.接收消息
+		// 7、接收消息，并输出内容
 
 		// 设置消息监听器
 		System.out.println("start");
@@ -69,7 +69,7 @@ public class TopicCustomer1 {
 		// 睡眠
 		Thread.sleep(10000000);
 
-		// 9.、关闭资源
+		// 9、关闭资源
 		consumer.close();
 		session.close();
 		connection.close();
