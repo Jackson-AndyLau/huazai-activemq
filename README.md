@@ -1,5 +1,4 @@
 # huazai-activemq
----
 
 ## ActiveMQ 的使用
 ### 1）、队列（Queue）的使用
